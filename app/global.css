@@ -1,0 +1,14 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+:root {
+    --color-primary: #1149FF;
+    --color-tint: #242424;
+    --color-tint-light: #949494;
+    --color-background: #020202;
+    --color-card: #121212;
+    --color-border: #2C2C2C;
+}
