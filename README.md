@@ -1,8 +1,11 @@
 # 💸 Fluxo
-## Fluxo is a mobile app built with React Native and NativeWind, designed to deliver a sleek, modern financial experience.
+**Fluxo is a mobile app built with React Native and NativeWind, designed to deliver a sleek, modern financial experience.**
 
 ## Main Features
-...
+- Secure Accounts – Manage multiple accounts safely with encrypted data.
+- Expense Insights – Clear visualization of your transactions and categories.
+- Live Exchange Rates – Automatic currency conversion.
+- Modern Interface – Smooth, animated UI powered by NativeWind.
 
 ## Tech Stack
 - React Native (expo - SDK 54)
