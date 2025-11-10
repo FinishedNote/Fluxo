@@ -1,9 +1,38 @@
 import CustomInput from '@/components/CustomInput'
+import { supabase } from '@/utils/supabase'
+import { Session } from '@supabase/supabase-js'
 import { Link } from 'expo-router'
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, Text, TouchableOpacity, View } from 'react-native'
 
 const SignUp = () => {
+    const [session, setSession] = useState<Session | null>(null)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session)
+        })
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session)
+        })
+    }, [])
+
+    async function signUpWithEmail() {
+        setLoading(true)
+        const {
+            data: { session },
+            error,
+        } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+        })
+        if (error) Alert.alert(error.message)
+        if (!session) Alert.alert('Please check your inbox for email verification!')
+        setLoading(false)
+    }
+
     return (
         <View className='flex-1 items-center bg-[#020202] pt-12'>
             <Text className='text-7xl font-medium text-white'>Fluxo</Text>
@@ -24,11 +53,11 @@ const SignUp = () => {
                 </Text>
             </View>
             <View className="w-full mt-12 gap-4 px-8">
-                <CustomInput placeholder="Email" />
-                <CustomInput placeholder="Password" secureTextEntry />
+                <CustomInput placeholder="email@address.com" value={email} onChangeText={(text) => setEmail(text)} />
+                <CustomInput placeholder="Password" value={password} secureTextEntry onChangeText={(text) => setPassword(text)} />
                 <CustomInput placeholder="Repeat password" secureTextEntry />
             </View>
-            <TouchableOpacity className="mt-10 bg-[#F6FF00] rounded-2xl px-14 py-3">
+            <TouchableOpacity className="mt-10 bg-[#F6FF00] rounded-2xl px-14 py-3" onPress={() => signUpWithEmail()} disabled={loading}>
                 <Text className="text-2xl text-black font-medium">Get Started</Text>
             </TouchableOpacity>
             <View className='w-3/4 h-0.5 bg-[#151515] mt-6'></View>
