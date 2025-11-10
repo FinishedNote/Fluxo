@@ -5,9 +5,9 @@ import { Text, TouchableOpacity, View } from 'react-native'
 
 const SignUp = () => {
     return (
-        <View className='flex-1 items-center bg-[#020202] pt-24'>
+        <View className='flex-1 items-center bg-[#020202] pt-12'>
             <Text className='text-7xl font-medium text-white'>Fluxo</Text>
-            <View className="mt-8">
+            <View className="mt-6">
                 <Text className="text-4xl text-white text-center">
                     Where tech runs your
                 </Text>
@@ -28,12 +28,12 @@ const SignUp = () => {
                 <CustomInput placeholder="Password" secureTextEntry />
                 <CustomInput placeholder="Repeat password" secureTextEntry />
             </View>
-            <TouchableOpacity className="mt-10 bg-[#F6FF00] rounded-2xl px-16 py-4">
+            <TouchableOpacity className="mt-10 bg-[#F6FF00] rounded-2xl px-14 py-3">
                 <Text className="text-2xl text-black font-medium">Get Started</Text>
             </TouchableOpacity>
             <View className='w-3/4 h-0.5 bg-[#151515] mt-6'></View>
-            <Text className="mt-6 text-white">By signing up, you agree to our Terms & Conditions</Text>
-            <Text className="mt-2 text-white">Already have an account? <Link href="/(auth)/sign-up"><Text className='text-[#F6FF00]'>Sign in</Text></Link></Text>
+            <Text className="mt-6 text-[#ccc] text-center">By signing up, you agree to our Terms & Conditions</Text>
+            <Text className="mt-2 text-white text-center">Already have an account? <Link href="/(auth)/sign-up"><Text className='text-[#F6FF00]'>Sign in</Text></Link></Text>
         </View>
     )
 }
