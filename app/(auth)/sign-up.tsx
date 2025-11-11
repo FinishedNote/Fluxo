@@ -1,35 +1,20 @@
 import CustomInput from '@/components/CustomInput'
-import { supabase } from '@/utils/supabase'
-import { Session } from '@supabase/supabase-js'
+import { useAuth } from '@/hooks/useAuth'
+import { signUpWithEmail } from '@/services/authService'
 import { Link } from 'expo-router'
-import React, { useEffect, useState } from 'react'
-import { Alert, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 
 const SignUp = () => {
-    const [session, setSession] = useState<Session | null>(null)
+    const { session } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirm, setConfirm] = useState('')
     const [loading, setLoading] = useState(false)
-    useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
-        })
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-        })
-    }, [])
 
-    async function signUpWithEmail() {
+    const handleSignUp = async () => {
         setLoading(true)
-        const {
-            data: { session },
-            error,
-        } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-        })
-        if (error) Alert.alert(error.message)
-        if (!session) Alert.alert('Please check your inbox for email verification!')
+        await signUpWithEmail(email, password, confirm)
         setLoading(false)
     }
 
@@ -55,14 +40,14 @@ const SignUp = () => {
             <View className="w-full mt-12 gap-4 px-8">
                 <CustomInput placeholder="email@address.com" value={email} onChangeText={(text) => setEmail(text)} />
                 <CustomInput placeholder="Password" value={password} secureTextEntry onChangeText={(text) => setPassword(text)} />
-                <CustomInput placeholder="Repeat password" secureTextEntry />
+                <CustomInput placeholder="Repeat password" value={confirm} onChangeText={(text) => setConfirm(text)} secureTextEntry />
             </View>
-            <TouchableOpacity className="mt-10 bg-[#F6FF00] rounded-2xl px-14 py-3" onPress={() => signUpWithEmail()} disabled={loading}>
+            <TouchableOpacity className="mt-10 bg-[#F6FF00] rounded-2xl px-14 py-3" onPress={() => handleSignUp()} disabled={loading}>
                 <Text className="text-2xl text-black font-medium">Get Started</Text>
             </TouchableOpacity>
             <View className='w-3/4 h-0.5 bg-[#151515] mt-6'></View>
             <Text className="mt-6 text-[#ccc] text-center">By signing up, you agree to our Terms & Conditions</Text>
-            <Text className="mt-2 text-white text-center">Already have an account? <Link href="/(auth)/sign-up"><Text className='text-[#F6FF00]'>Sign in</Text></Link></Text>
+            <Text className="mt-2 text-white text-center">Already have an account? <Link href="/(auth)/sign-in"><Text className='text-[#F6FF00]'>Sign in</Text></Link></Text>
         </View>
     )
 }
