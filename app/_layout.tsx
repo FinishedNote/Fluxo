@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import "./global.css";
 
 export default function RootLayout() {
-  const isAuthenticated = false; // replace with auth logic
+  const isAuthenticated = true; // replace with auth logic
   const segments = useSegments();
 
   const inAuthGroup = segments[0] === "(auth)";
