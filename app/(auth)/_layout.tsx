@@ -8,7 +8,7 @@ export default function AuthLayout() {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
             <ScrollView
-                className="bg-[#020202] h-full"
+                className="bg-background h-full"
                 keyboardShouldPersistTaps="handled"
             >
                 <Slot />

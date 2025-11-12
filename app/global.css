@@ -4,13 +4,13 @@
 
 @import "nativewind/theme";
 
-:root {
-    --color-primary: #1149FF;
-    --color-tint: #242424;
-    --color-tint-light: #949494;
+@theme {
+    --color-primary: #F6FF00;
+    --color-tint: #949494;
+    --color-tintLight: #fafafa;
     --color-background: #020202;
     --color-card: #121212;
-    --color-border: #2C2C2C;
+    --color-border: #1d1d1d;
 }
 
 @layer utilities {
